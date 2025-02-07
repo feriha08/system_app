@@ -9,7 +9,7 @@ const LoadList = () => {
     useEffect(() => {
         const fetchLoads = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/cargo/');
+                const response = await axios.get('https://cargo-backends.onrender.com/api/cargo/');
                 setLoads(response.data);
             } catch (error) {
                 console.error('Error fetching load details', error);
@@ -25,11 +25,11 @@ const LoadList = () => {
         const receivedBy = prompt('Enter received by name:');
         const identificationNumber = prompt('Enter identification number:');
         try {
-            await axios.post(`http://127.0.0.1:8000/api/cargo/${id}/receive/`, {
+            await axios.post(`https://cargo-backends.onrender.com/api/cargo/${id}/receive/`, {
                 receivedBy,
                 identificationNumber
             });
-            const response = await axios.get('http://127.0.0.1:8000/api/cargo/');
+            const response = await axios.get('https://cargo-backends.onrender.com/api/cargo/');
             setLoads(response.data);
         } catch (error) {
             console.error('Error marking cargo as received', error);
@@ -39,7 +39,7 @@ const LoadList = () => {
     const handleDeleteCargo = async (id) => {
         if (window.confirm('Are you sure you want to delete this cargo?')) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/api/cargo/${id}/`);
+                await axios.delete(`https://cargo-backends.onrender.com/api/cargo/${id}/`);
                 setLoads(loads.filter(load => load.id !== id));
             } catch (error) {
                 console.error('Error deleting cargo', error);
